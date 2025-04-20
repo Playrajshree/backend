@@ -9,10 +9,18 @@ const {
 
 
 const registerUser = async (req, res, next) => {
-  const { userName, email, password, role } = req.body;
-  const profilePicture = req.file.path;
-
+  
   try {
+    const { userName, email, password, role } = req.body;
+    const profilePicture = req.file.path;
+
+    if(!profilePicture){
+         return res.status(400).json({
+            message: "profilePicture required",
+            status: false,
+            statusCode: 400
+         })
+    }
     const isUserAlreadyExist = await User.findOne({ email });
     if (isUserAlreadyExist) {
       return res.status(409).json({
