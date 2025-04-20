@@ -40,7 +40,8 @@ const registerUser = async (req, res, next) => {
     await user.save();
     res.status(201).json({
       message: 'User registered successfully',
-      status: 201,
+      status: false,
+      statusCode: 201
     });
   } catch (error) {
     console.error('Error in user registration', error);
@@ -212,14 +213,12 @@ const getUserProfile = async (req, res, next) => {
                     statusCode: 404
                })
            }
-
            res.status(200).json({
                 message: "User fetched successfully",
                 status: true,
                 statusCode: 200,
                 data: user
-           })
-        
+           })        
        } catch (error) {
            console.error("Error in get UserProfile", error);
            next(error);
