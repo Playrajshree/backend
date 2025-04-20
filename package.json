@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon ./server.js",
+    "dev": "cross-env NODE_ENV=development nodemon ./server.js",
     "prettier:check": "npx prettier . --check",
-    "prettier:format": "npx prettier . --write"
+    "prettier:format": "npx prettier . --write",
+    "start": "pm2 start ecosystem.config.js --env production",
+   "restart": "pm2 restart ecosystem.config.js --env production",
+   "stop": "pm2 stop ecosystem.config.js",
+   "delete": "pm2 delete ecosystem.config.js",
+   "logs": "pm2 logs"
   },
   "keywords": [],
   "author": "",

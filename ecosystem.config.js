@@ -1,0 +1,20 @@
+module.exports = {
+    apps: [
+      {
+        name: "backend",
+        script: "server.js", // ⚠️ Isko tumhare entry file se replace karo (e.g., server.js)
+        cwd: "C:/Users/rajsh/Desktop/backend", // Add this line
+        instances: 1, // ya "max" for all CPU cores
+        autorestart: true,
+        watch: false,
+        max_memory_restart: "512M",
+        env: {
+          NODE_ENV: "development",
+        },
+        env_production: {
+          NODE_ENV: "production",
+          PORT: 5000 // apna production port yahan daalo
+        }
+      }
+    ]
+  };
