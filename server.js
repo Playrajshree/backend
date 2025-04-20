@@ -5,39 +5,36 @@ const app = require('./app.js');
 const connectDB = require('./src/db/dbConnect.js');
 const Config = require('./src/configs/Config.js');
 
+const numOfCpus = os.cpus().length;
 
-
-
-const numOfCpus= os.cpus().length; // this method oc os provide the logical information of each cpu cores and returns an array of those informations 
-
-if(cluster.isMaster){
-     console.log(`Master ${process.pid} is running`);
-     // always call db in the master process otherwise it will increase the load on mongodb server 
-     connectDB().then(() => {
-          for(let i = 0; i < numOfCpus; i++){
-               cluster.fork(); // this method is used to create the worker
-
-          }
-     }).catch((error) => {
-         console.error('❌ Server startup failed due to DB error:', error)
-         process.exit(1); // end server of doing this if connection fails from the mongodb server
-     })
-      // here an event listener is beign attached to cluster so it can react if any worker dies 
-     cluster.on('exit', (worker) => {
+const startServer = async ( ) => {
+    if (cluster.isMaster) {
+      console.log(`Master process ${process.pid} is running`);
+        for (let i = 0; i < numOfCpus; i++) {
+          cluster.fork();  // Creating worker processes
+        }
+        cluster.on('exit', (worker) => {
           console.log(`Worker ${worker.process.pid} died. Spawning a new one.`);
-          cluster.fork();ðß
-     })
+          cluster.fork();  // Spawn a new worker if one dies
+        });
+    }
+    else {
+      try {
+         await connectDB();
+         const server = http.createServer(app);          
+            server.listen(Config.PORT, () => {
+            console.log(`Worker ${process.pid} started server on port ${Config.PORT}`);
+          });
+      } catch (error) {
+        console.error(`Worker ${process.pid} failed to connect DB:`, error);
+        process.exit(1);
+        
+      }
+  }
 }
-else {
-   const server = http.createServer(app); // create an instance for each worker 
-      server.listen(Config.PORT, () => {
-        console.log(`Server started on port 3000 by worker ${process.pid}`);  
-      })
-}
+    
 
-
-
-
+startServer();
 
 
 

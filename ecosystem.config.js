@@ -3,8 +3,7 @@ module.exports = {
       {
         name: "backend",
         script: "server.js", // ⚠️ Isko tumhare entry file se replace karo (e.g., server.js)
-        cwd: " /root/backend", // Add this line
-        instances: 1, // ya "max" for all CPU cores
+        instances: 4, // ya "max" for all CPU cores
         autorestart: true,
         watch: false,
         max_memory_restart: "512M",
