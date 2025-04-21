@@ -7,6 +7,15 @@ const Config = require('./src/configs/Config.js');
 
 const numOfCpus = os.cpus().length;
 
+const https = require('https');
+const fs = require('fs');
+const express = require('express');
+const app = express();
+
+const options = {
+  key: fs.readFileSync(Config.PRIV_KEY),
+  cert: fs.readFileSync(Config.CERT_KEY)
+};
 const startServer = async ( ) => {
     if (cluster.isMaster) {
       console.log(`Master process ${process.pid} is running`);
@@ -21,7 +30,7 @@ const startServer = async ( ) => {
     else {
       try {
          await connectDB();
-         const server = http.createServer(app);          
+         const server = http.createServer(options, app);          
             server.listen(Config.PORT, () => {
             console.log(`Worker ${process.pid} started server on port ${Config.PORT}`);
           });
