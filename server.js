@@ -10,11 +10,11 @@ const numOfCpus = os.cpus().length;
 const https = require('https');
 const fs = require('fs');
 const express = require('express');
-const app = express();
+
 
 const options = {
-  key: fs.readFileSync(Config.PRIV_KEY),
-  cert: fs.readFileSync(Config.CERT_KEY)
+  key: fs.readFileSync('/etc/letsencrypt/live/api.rajshreeplays.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/api.rajshreeplays.com/fullchain.pem')
 };
 const startServer = async ( ) => {
     if (cluster.isMaster) {
