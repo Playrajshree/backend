@@ -1,15 +1,11 @@
 const cluster = require("cluster");
 const os = require("os");
-const http = require("http");
 const app = require('./app.js');
+const fs = require('fs');
+const https = require('https');
 const connectDB = require('./src/db/dbConnect.js');
 const Config = require('./src/configs/Config.js');
-
 const numOfCpus = os.cpus().length;
-
-const https = require('https');
-const fs = require('fs');
-const express = require('express');
 
 
 const options = {
@@ -30,7 +26,7 @@ const startServer = async ( ) => {
     else {
       try {
          await connectDB();
-         const server = http.createServer(options, app);          
+         const server = https.createServer(options, app);          
             server.listen(Config.PORT, () => {
             console.log(`Worker ${process.pid} started server on port ${Config.PORT}`);
           });
