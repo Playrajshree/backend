@@ -9,7 +9,7 @@ const rateLimit = require("express-rate-limit");
 
 const app = express();
 app.use(cors({
-  origin: "https://rajshreeplays.com/", // or wherever your frontend is served from
+  origin: ["https://rajshreeplays.com/", "http://127.0.0.1.5501"], // or wherever your frontend is served from
   credentials: true
 }));
 
