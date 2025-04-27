@@ -7,7 +7,7 @@ const addGameResult = async (req, res, next) => {
       const {
         date, 
         time,
-        xa,xb,xc,xd,xe,xf,xg,xh,xi,xj
+        A11,B12,C13,D14,E15,F16,G17,H18,I19,
       } = req.body;
       const {_id } = req.user
      try {
@@ -15,7 +15,15 @@ const addGameResult = async (req, res, next) => {
             date: new Date(date),
             time,
             creatorId: _id,
-            xa,xb,xc,xd,xe,xf,xg,xh,xi,xj
+            A11,
+            B12,
+            C13,
+            D14,
+            E15,
+            F16,
+            G17,
+            H18,
+            I19
           });
           await gResult.save()
     
@@ -90,16 +98,17 @@ const getGameResults = async (req, res, next) => {
                     _id:1,
                     date: 1,
                     time: 1,
-                    xa: 1,
-                    xb: 1,
-                    xc: 1,
-                    xd: 1,
-                    xe: 1,
-                    xf: 1,
-                    xg: 1,
-                    xh: 1,
-                    xi: 1,
-                    xj: 1,
+                    A11: 1,
+                    B12: 1,
+                    C13: 1,
+                    D14: 1,
+                    E15: 1,
+                    F16: 1,
+                    G17: 1,
+                    H18: 1,
+                    I19: 1,
+                    createdAt: 1,
+                    updatedAt: 1,
                     creator: {
                         _id: 1,
                         userName:1,
