@@ -12,7 +12,7 @@ module.exports = {
         },
         env_production: {
           NODE_ENV: "production",
-          PORT: 5000 // apna production port yahan daalo
+          PORT: 443 // apna production port yahan daalo
         }
       }
     ]
