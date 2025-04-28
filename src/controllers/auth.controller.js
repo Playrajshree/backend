@@ -110,12 +110,12 @@ const logoutUser = (req, res, next) => {
     res.clearCookie("accessToken", {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      sameSite: "none",
    });
    res.clearCookie("refreshToken", {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      sameSite: "none",
    });
    res.status(200).json({
        statusCode: 200,
