@@ -4,16 +4,15 @@ const gameResultValidator = (req, res, next) => {
        const gameResultSchema = Joi.object({
             date: Joi.string().required(),
             time: Joi.string().required(),
-            xa: Joi.string().required(),
-            xb: Joi.string().required(),
-            xc: Joi.string().required(),
-            xd: Joi.string().required(),
-            xe: Joi.string().required(),
-            xf: Joi.string().required(),
-            xg: Joi.string().required(),
-            xh: Joi.string().required(),
-            xi: Joi.string().required(),
-            xj: Joi.string().required(),
+            A11: Joi.string().required(),
+            B12: Joi.string().required(),
+            C13: Joi.string().required(),
+            D14: Joi.string().required(),
+            E15: Joi.string().required(),
+            F16: Joi.string().required(),
+            G17: Joi.string().required(),
+            H18: Joi.string().required(),
+            I19: Joi.string().required(),
        })
        const {error, value} = gameResultSchema.validate(req.body);
        if(error){
