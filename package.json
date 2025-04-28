@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon ./server.js",
+    "dev": "cross-env NODE_ENV=production./server.js",
     "prettier:check": "npx prettier . --check",
     "prettier:format": "npx prettier . --write",
     "start": "pm2 start ecosystem.config.js --env production",

@@ -1,4 +1,4 @@
-const express = require("express");
+ const express = require("express");
 const { checkRole, authenticateUser } = require("../middlewares/auth.middleware");
 const { gameResultValidator, currentGameResultsValidator, RangeOfDateGameResultsValidator } = require("../validators/gameResult.validator");
 const { addGameResult, deleteGameResult, getGameResults, getCurrentGameResults, getRangeOfGameResults } = require("../controllers/gameResults.controller");

@@ -46,7 +46,7 @@ app.use((error, req, res, next) => {
   const message = error.message || 'Internal Server error';
 
   res.status(status).json({
-    error: {
+    
       statusCode: status,
       status: false,
       message: message,
@@ -54,7 +54,6 @@ app.use((error, req, res, next) => {
       url: req.originalUrl,
       method: req.method,
       stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
-    },
   });
 });
 
