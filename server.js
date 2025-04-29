@@ -12,6 +12,7 @@ const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/api.rajshreeplays.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/api.rajshreeplays.com/fullchain.pem')
 };
+
 const startServer = async ( ) => {
     if (cluster.isMaster) {
       console.log(`Master process ${process.pid} is running`);
