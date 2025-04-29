@@ -85,7 +85,7 @@ const loginUser = async (req, res, next) => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
-        maxAge: 1000 * 60 * 60, // 60 minutes
+        maxAge: 1000 * 60 * 60 * 24, // 60 minutes
     }) 
     res.cookie("refreshToken", refreshToken, {
        httpOnly: true,
@@ -114,7 +114,7 @@ const logoutUser = (req, res, next) => {
    });
    res.clearCookie("refreshToken", {
       httpOnly: true,
-      secure: true,
+      secure: true, 
       sameSite: "none",
    });
    res.status(200).json({

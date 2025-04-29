@@ -27,7 +27,7 @@ const generateAccessToken = (payload) => {
     const privateKey = fs.readFileSync(privateKeyPath, 'utf-8');
     const accessToken = jwt.sign(payload, privateKey, {
       algorithm: 'RS256',
-      expiresIn: '1h',
+      expiresIn: '1d',
     });
 
     return accessToken;
