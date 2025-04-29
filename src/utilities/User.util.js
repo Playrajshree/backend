@@ -4,14 +4,15 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
 
-const handleHashPassword = (userPassword) => {
+const handleHashPassword = async (userPassword) => {
   const SALT_ROUND = parseInt(Config.SALT_ROUND) || 10;
-  const hashedPassword = bcrypt.hashSync(userPassword, SALT_ROUND);
+  const salt = await bcrypt.genSalt(SALT_ROUND);
+  const hashedPassword = await bcrypt.hash(userPassword, salt);
   return hashedPassword;
 };
 
-const comparePasswordHandler = (plainPassword, hashedPassword) => {
-  const isMatch = bcrypt.compareSync(plainPassword, hashedPassword);
+const comparePasswordHandler = async (plainPassword, hashedPassword) => {
+  const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
   return isMatch;
 };
 

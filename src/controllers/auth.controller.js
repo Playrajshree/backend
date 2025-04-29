@@ -29,7 +29,7 @@ const registerUser = async (req, res, next) => {
         statusCode: 409,
       });
     }
-    const hashedPassword = handleHashPassword(password);
+    const hashedPassword = await handleHashPassword(password);
     const user = new User({
       userName,
       email,
@@ -63,7 +63,7 @@ const loginUser = async (req, res, next) => {
       });
     }
 
-    const isPasswordValid = comparePasswordHandler(password, user.password);
+    const isPasswordValid =  await comparePasswordHandler(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({
         message: 'Password is invalid',
@@ -139,7 +139,8 @@ const changePassword = async (req, res, next) => {
                  statusCode: 404  
              })
          }
-         const isSamePassword = comparePasswordHandler(newPassword, user.password);
+         const isSamePassword = await comparePasswordHandler(newPassword, user.password);
+         console.log(isSamePassword);
          if(isSamePassword){
              return res.status(409).json({
                   message: 'Password cannot be the same',
@@ -148,7 +149,7 @@ const changePassword = async (req, res, next) => {
              })
          }
 
-         const hashedPassword = handleHashPassword(changePassword);
+         const hashedPassword = await handleHashPassword(newPassword);
          user.password = hashedPassword;
          await user.save({
               validateModifiedOnly: true
@@ -171,6 +172,7 @@ const changeEmail = async (req, res, next) => {
 
         try {
             const user = await User.findById(_id);
+
             if(!user){
                 return res.status(404).json({
                       message: "User not found",
@@ -187,7 +189,7 @@ const changeEmail = async (req, res, next) => {
                       statusCode: 409
                  })
             }
-            user.email = changeEmail;
+            user.email = newEmail;
             await user.save({
                  validateModifiedOnly: true
             })
