@@ -56,7 +56,7 @@ const changeEmailValidator = (req, res, next) => {
            newEmail: Joi.string().email().required()
       })
 
-      const {error, value} = changeEmailSchema(req.body);
+      const {error, value} = changeEmailSchema.validate(req.body);
       if(error){
            return next(error);
       }
