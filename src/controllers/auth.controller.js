@@ -56,7 +56,7 @@ const loginUser = async (req, res, next) => {
     const user = await User.findOne({ email });
     console.log(user);
     if (!user) {
-      return res.status().json({
+      return res.status(404).json({
         message: "User doesn't exit",
         status: false,
         statusCode: 404,
@@ -178,8 +178,9 @@ const changeEmail = async (req, res, next) => {
                       statusCode: 404
                 })
             }
-            const isEmailSame = user.email === newEmail;
-            if(isEmailSame){
+            console.log(user);
+            console.log(user.email === newEmail);
+            if(user.email === newEmail){
                  return res.status(409).json({
                       message: "Email is same as last email",
                       status: false,
