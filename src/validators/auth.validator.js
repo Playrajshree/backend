@@ -15,9 +15,7 @@ const registerUserValidator = (req, res, next) => {
       ),
     role: Joi.string().required().valid('admin'),
   });
- console.log(req.body);
   const { error, value } = registerSchema.validate(req.body);
-  console.log(error);
   if (error) {
     return next(error);
   }

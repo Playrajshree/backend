@@ -12,7 +12,6 @@ const registerUser = async (req, res, next) => {
   
   try {
     const { userName, email, password, role } = req.body;
-    console.log(req.body);
     const profilePicture = req.file.path;
 
     if(!profilePicture){
@@ -39,6 +38,7 @@ const registerUser = async (req, res, next) => {
       role,
     });
     await user.save();
+    
     res.status(201).json({
       message: 'User registered successfully',
       status: false,
