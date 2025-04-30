@@ -12,6 +12,7 @@ const registerUser = async (req, res, next) => {
   
   try {
     const { userName, email, password, role } = req.body;
+    console.log(req.body);
     const profilePicture = req.file.path;
 
     if(!profilePicture){
