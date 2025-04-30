@@ -9,7 +9,7 @@ const rateLimit = require("express-rate-limit");
 
 const app = express();
 app.use(cors({
-  origin: "https://rajshreeplays.com/",
+  origin: "https://rajshreeplays.com",
   credentials: true
 }));
 
