@@ -15,41 +15,55 @@ const gameResultSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
-    A11: {
+    A10: {
       type: String,
       required: true,
+      maxlength: 3
     },
-    B12: {
+    B11: {
       type: String,
       required: true,
+      maxlength: 3
     },
-    C13: {
+    C12: {
       type: String,
       required: true,
+      maxlength: 3
     },
-    D14: {
+    D13: {
       type: String,
       required: true,
+      maxlength: 3
     },
-    E15: {
+    E14: {
       type: String,
       required: true,
+      maxlength: 3
     },
-    F16: {
+    F15: {
       type: String,
       required: true,
+      maxlength: 3
     },
-   G17: {
+   G16: {
       type: String,
       required: true,
+      maxlength: 3
     },
-    H18: {
+    H17: {
       type: String,
       required: true,
+      maxlength: 3
     },
-    I19: {
+    I18: {
       type: String,
       required: true,
+      maxlength: 3
+    },
+    J19: {
+      type: String,
+      required: true,
+      maxlength: 3
     },
   },
   { timestamps: true }

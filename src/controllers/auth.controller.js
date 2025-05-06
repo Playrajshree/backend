@@ -5,6 +5,7 @@ const {
   generateAccessToken,
   generateRefreshToken,
 } = require('../utilities/User.util');
+const uploadToCloudinary = require("../utilities/cloudinary");
 
 
 
@@ -12,9 +13,9 @@ const registerUser = async (req, res, next) => {
   
   try {
     const { userName, email, password, role } = req.body;
-    const profilePicture = req.file.path;
+    const profilePicturePath = req.file.path;
 
-    if(!profilePicture){
+    if(!profilePicturePath){
          return res.status(400).json({
             message: "profilePicture required",
             status: false,
@@ -30,11 +31,13 @@ const registerUser = async (req, res, next) => {
       });
     }
     const hashedPassword = await handleHashPassword(password);
+    const cloudinaryResponse = await uploadToCloudinary(profilePicturePath);
+
     const user = new User({
       userName,
       email,
       password: hashedPassword,
-      profilePicture,
+      profilePicture: cloudinaryResponse. secure_url,
       role,
     });
     await user.save();
@@ -52,10 +55,8 @@ const registerUser = async (req, res, next) => {
 
 const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(req.body);
   try {
     const user = await User.findOne({ email });
-    console.log(user);
     if (!user) {
       return res.status(404).json({
         message: "User doesn't exit",
@@ -192,7 +193,7 @@ const changeEmail = async (req, res, next) => {
             }
             user.email = newEmail;
             await user.save({
-                 validateModifiedOnly: true
+                validateBeforeSave: false
             })
 
            res.status(200).json({

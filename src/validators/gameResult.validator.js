@@ -4,15 +4,16 @@ const gameResultValidator = (req, res, next) => {
        const gameResultSchema = Joi.object({
             date: Joi.string().required(),
             time: Joi.string().required(),
-            A11: Joi.string().required(),
-            B12: Joi.string().required(),
-            C13: Joi.string().required(),
-            D14: Joi.string().required(),
-            E15: Joi.string().required(),
-            F16: Joi.string().required(),
-            G17: Joi.string().required(),
-            H18: Joi.string().required(),
-            I19: Joi.string().required(),
+            A10: Joi.string().required().max(3),
+            B11: Joi.string().required().max(3),
+            C12: Joi.string().required().max(3),
+            D13: Joi.string().required().max(3),
+            E14: Joi.string().required().max(3),
+            F15: Joi.string().required().max(3),
+            G16: Joi.string().required().max(3),
+            H17: Joi.string().required().max(3),
+            I18: Joi.string().required().max(3),
+            J19: Joi.string().required().max(3),
        })
        const {error, value} = gameResultSchema.validate(req.body);
        if(error){
@@ -35,7 +36,6 @@ const currentGameResultsValidator = (req, res, next) => {
 }
 
 const RangeOfDateGameResultsValidator = (req, res, next) => {
-     console.log(req.query);
      const RangeOfDateGameResultsSchema = Joi.object({
           startDate: Joi.string().required().pattern(/^\d{4}-\d{2}-\d{2}$/).message("startDate must be in YYYY-MM-DD format"),
           endDate: Joi.string().required().pattern(/^\d{4}-\d{2}-\d{2}$/).message("endDate must be in YYYY-MM-DD format "),
@@ -56,11 +56,25 @@ const RangeOfDateGameResultsValidator = (req, res, next) => {
      req.query = value;
      next();
 }
+const updateResultValidator = (req, res, next) => {
+      const updateResultSchema = Joi.object({
+           id: Joi.string().required(),
+           cell: Joi.string().required().max(3).valid('A10', 'B11', 'C12', 'D13', 'E14', 'F15', 'G16', 'H17', 'I18', 'J19'),
+           cellValue: Joi.string().required().max(3)
+      })
+      const {error, value} = updateResultSchema.validate(req.body);
+      if(error){
+          return next(error);
+      }
+      req.body = value;
+      next();
+}
 
 
 module.exports = {
      gameResultValidator,
      currentGameResultsValidator,
-     RangeOfDateGameResultsValidator
+     RangeOfDateGameResultsValidator,
+     updateResultValidator
 };
 

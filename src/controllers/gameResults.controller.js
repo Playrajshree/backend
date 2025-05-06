@@ -195,7 +195,36 @@ const getRangeOfGameResults = async (req, res, next) => {
 }
 
 
+const updateResult = async (req, res, next) => {
+     try {
+         const {id, cell, cellValue} = req.body;
+         const updateResult = await gameResult.findById(id);
+         if(!updateResult){
+             return res.status(404).json({
+                message: "Game Result Not Found",
+                status: false,
+                statusCode: 404
+             })
+         }    
+         updateResult[cell] = cellValue;
+         const updatedResult = await updateResult.save({
+            validateBeforeSave: false
+         });
+         console.log(updatedResult);
+         res.status(200).json({
+            message: "Game Result Updated",
+            status: true,
+            statusCode: 200,
+            data: updatedResult
+         })
+     } catch (error) {
+         console.error("Error in updateResult: ", error);
+         next(error);
+     }
+}
+
+
 
 module.exports = {
-    addGameResult,deleteGameResult,getGameResults,getCurrentGameResults, getRangeOfGameResults
+    addGameResult,deleteGameResult,getGameResults,getCurrentGameResults, getRangeOfGameResults, updateResult
 }
