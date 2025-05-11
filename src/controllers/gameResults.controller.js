@@ -7,23 +7,25 @@ const addGameResult = async (req, res, next) => {
       const {
         date, 
         time,
-        A11,B12,C13,D14,E15,F16,G17,H18,I19,
+        A10,B11,C12,D13,E14,F15,G16,H17,I18,J19
       } = req.body;
+      console.log(req.body);
       const {_id } = req.user
      try {
         const gResult = new gameResult({
             date: new Date(date),
             time,
             creatorId: _id,
-            A11,
-            B12,
-            C13,
-            D14,
-            E15,
-            F16,
-            G17,
-            H18,
-            I19
+            A10,
+            B11,
+            C12,
+            D13,
+            E14,
+            F15,
+            G16,
+            H17,
+            I18,
+            J19
           });
           await gResult.save()
     
@@ -58,7 +60,6 @@ const deleteGameResult = async (req, res, next) => {
               })  
          } 
         const gResult = await gameResult.findByIdAndDelete(id);        
-        
         if(!gResult){
             return res.status(404).json({
                 message: "Game Result Not Found",
@@ -98,15 +99,16 @@ const getGameResults = async (req, res, next) => {
                     _id:1,
                     date: 1,
                     time: 1,
-                    A11: 1,
-                    B12: 1,
-                    C13: 1,
-                    D14: 1,
-                    E15: 1,
-                    F16: 1,
-                    G17: 1,
-                    H18: 1,
-                    I19: 1,
+                    A10: 1,
+                    B11: 1,
+                    C12: 1,
+                    D13: 1,
+                    E14: 1,
+                    F15: 1,
+                    G16: 1,
+                    H17: 1,
+                    I18: 1,
+                    J19: 1,
                     createdAt: 1,
                     updatedAt: 1,
                     creator: {
@@ -141,7 +143,6 @@ const getCurrentGameResults = async (req, res, next) => {
       const { date } =  req.query;
       try {
           const currentGameResult = await gameResult.find({date});
-          console.log(currentGameResult);
           if(currentGameResult.length === 0){
              return res.status(404).json({
                 message: "No Game Result Found",
@@ -163,7 +164,6 @@ const getCurrentGameResults = async (req, res, next) => {
 
 const getRangeOfGameResults = async (req, res, next) => {
      const {startDate, endDate} = req.query;
-     console.log(startDate, endDate);
      try {
           const gResult = await gameResult.aggregate([{
             $match: {
@@ -195,7 +195,33 @@ const getRangeOfGameResults = async (req, res, next) => {
 }
 
 
+const updateResult = async (req, res, next) => {
+     try {
+         const {id, cell, cellValue} = req.body;
+         const updateResult = await gameResult.findById(id);
+         if(!updateResult){
+             return res.status(404).json({
+                message: "Game Result Not Found",
+                status: false,
+                statusCode: 404
+             })
+         }    
+         updateResult[cell] = cellValue;
+         const updatedResult = await updateResult.save({
+            validateBeforeSave: false
+         });
+         res.status(200).json({
+            message: "Game Result Updated",
+            status: true,
+            statusCode: 200,
+            data: updatedResult
+         })
+     } catch (error) {
+         console.error("Error in updateResult: ", error);
+         next(error);
+     }
+}
 
 module.exports = {
-    addGameResult,deleteGameResult,getGameResults,getCurrentGameResults, getRangeOfGameResults
+    addGameResult,deleteGameResult,getGameResults,getCurrentGameResults, getRangeOfGameResults, updateResult
 }

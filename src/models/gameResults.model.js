@@ -1,4 +1,3 @@
-const { required } = require('joi');
 const mongoose = require('mongoose');
 
 const gameResultSchema = new mongoose.Schema(
@@ -15,40 +14,44 @@ const gameResultSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
-    A11: {
-      type: String,
+    A10: {
+      type: Number,
       required: true,
     },
-    B12: {
-      type: String,
+    B11: {
+      type: Number,
       required: true,
     },
-    C13: {
-      type: String,
+    C12: {
+      type: Number,
       required: true,
     },
-    D14: {
-      type: String,
+    D13: {
+      type: Number,
       required: true,
     },
-    E15: {
-      type: String,
+    E14: {
+      type: Number,
       required: true,
     },
-    F16: {
-      type: String,
+    F15: {
+      type: Number,
       required: true,
     },
-   G17: {
-      type: String,
+   G16: {
+      type: Number,
       required: true,
     },
-    H18: {
-      type: String,
+    H17: {
+      type: Number,
       required: true,
     },
-    I19: {
-      type: String,
+    I18: {
+      type: Number,
+      required: true,
+    },
+    J19: {
+      type: Number,
       required: true,
     },
   },

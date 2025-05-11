@@ -33,8 +33,7 @@ const startServer = async ( ) => {
           });
       } catch (error) {
         console.error(`Worker ${process.pid} failed to connect DB:`, error);
-        process.exit(1);
-        
+        process.exit(1);  
       }
   }
 }
